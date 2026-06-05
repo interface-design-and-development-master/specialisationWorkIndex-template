@@ -1,0 +1,102 @@
+/*!!!!!*/
+/*add in your own font imports here*/
+/*remember to update them in the rest of the CSS : eg the body selector*/
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+/*!!!!!*/
+/*change out, and/or add colours to the colour scheme*/
+:root{
+    /* basic 2-bit palette from 1bit Monitor Glow Palette by Polyducks */
+    /* https://lospec.com/palette-list/1bit-monitor-glow */
+    --colour-1: #222323;
+    --colour-2: #f0f6f0;
+}
+
+/* this swaps the colour order to account for user's OS dark mode */
+/*!!!!!*/
+/*remember to update the colours here too to reflect the above changes*/
+@media (prefers-color-scheme: dark) {
+    :root{
+        --colour-1: #f0f6f0;
+        --colour-2: #222323;
+    }
+}
+
+
+body {
+    background-color: var(--colour-2);
+    color: var(--colour-1);
+    font-family: 'Work Sans', sans-serif;
+    line-height: 1.5;
+    padding: 1rem;
+    display: grid;
+    grid-template:
+    "header header header" min-content
+    "nav main spacer"
+    "footer footer footer" min-content / minmax(max-content, 1fr) 1200px 1fr;
+    ;
+    gap: 1rem;
+}
+
+header {
+    grid-area: header;
+    text-align: center;
+}
+
+nav {
+    grid-area: nav;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    grid-area: main;
+}
+
+footer {
+    grid-area: footer;
+}
+
+/*technique from Kevin Powell*/
+/*https://youtu.be/CU8Plk-53RU?si=zMpP0Pfbg1SaXeDB&t=255*/
+/*longer post about how this works and the * + * selector*/
+/*https://alistapart.com/article/axiomatic-css-and-lobotomized-owls/*/
+.prose > * + * {
+    margin-block-start: var(--prose-flow, 1em);
+}
+
+/* breakpoints from Material Design Spec https://m3.material.io/foundations/layout/breakpoints/overview */
+/* while sometimes mobile first is recommended, as we will be focused on desktop, we will start there */
+
+/* assumed base sizing is large (1200–1599px) : desktop  */
+
+/* extra-large breakpoint : desktop, ultrawide monitors */
+@media (width > 1600px) {
+
+}
+
+/* expanded breakpoint : phone or tablet in landscape, desktop */
+@media (width < 1200px) {
+    body {
+        grid-template:
+        "header header header" min-content
+        "nav main spacer"
+        "footer footer footer" min-content / minmax(max-content, 1fr) 840px 1fr;
+        ;
+    }
+}
+/* medium breakpoint : tablet in portrait */
+@media (width < 840px) {
+    body {
+        grid-template:
+        "header header header" min-content
+        "nav nav nav" min-content
+        "main main main"
+        "footer footer footer" min-content / minmax(max-content, 1fr) 840px 1fr;
+    ;
+    }
+}
+/* compact breakpoint : phone in portrait */
+@media (width < 600px) {
+
+}
